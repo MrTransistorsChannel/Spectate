@@ -1,0 +1,10 @@
+name: Spectate
+version: 2.0
+author: MrTransistor
+main: ru.tulavcube.Spectate.Spectate
+commands:
+  spec:
+    aliases: [s]
+    description: Switch to/from freeCam mode
+    usage: "Usage: /spec"
+api-version: 1.17
