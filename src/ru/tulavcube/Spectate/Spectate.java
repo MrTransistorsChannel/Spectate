@@ -59,6 +59,7 @@ public class Spectate extends JavaPlugin {
         DummyPlayer shadow = playerShadowMap.get(player);
         if (shadow != null) {
             player.teleport(shadow.getBukkitEntity());
+            player.getInventory().setContents(shadow.getBukkitEntity().getInventory().getContents()); // fixing #1
             Entity shadowVehicle = shadow.getBukkitEntity().getVehicle();
             if(shadowVehicle != null) shadowVehicle.addPassenger(shadow.getSpawner());
             player.setHealth(shadow.getHealth());
