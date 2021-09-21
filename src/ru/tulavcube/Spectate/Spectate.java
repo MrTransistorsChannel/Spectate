@@ -47,9 +47,10 @@ public class Spectate extends JavaPlugin {
         if (player.isFlying()) shadow.getBukkitEntity().setFlying(true);
         playerShadowMap.put(player, shadow);
         shadow.getBukkitEntity().getInventory().setContents(player.getInventory().getContents());
+        shadow.getBukkitEntity().setLevel(player.getLevel());
+        shadow.getBukkitEntity().setExp(player.getExp());
         Entity playerVehicle = player.getVehicle();
         if(playerVehicle != null) playerVehicle.addPassenger(shadow.getBukkitEntity());
-
         player.addScoreboardTag("ru.tulavcube.Spectate:spectating");
         playerGameModeMap.put(player, player.getGameMode());
         player.setGameMode(GameMode.SPECTATOR);
@@ -60,6 +61,8 @@ public class Spectate extends JavaPlugin {
         if (shadow != null) {
             player.teleport(shadow.getBukkitEntity());
             player.getInventory().setContents(shadow.getBukkitEntity().getInventory().getContents()); // fixing #1
+            player.setLevel(shadow.getBukkitEntity().getLevel());
+            player.setExp(shadow.getBukkitEntity().getExp());
             Entity shadowVehicle = shadow.getBukkitEntity().getVehicle();
             if(shadowVehicle != null) shadowVehicle.addPassenger(shadow.getSpawner());
             player.setHealth(shadow.getHealth());
