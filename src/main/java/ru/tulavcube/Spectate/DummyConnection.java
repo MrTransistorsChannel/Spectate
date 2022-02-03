@@ -21,19 +21,19 @@ package ru.tulavcube.Spectate;
 import io.netty.channel.*;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.protocol.EnumProtocolDirection;
+import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.PacketFlow;
 
 import java.net.SocketAddress;
 
-public class DummyNetworkManager extends NetworkManager {
+public class DummyConnection extends Connection {
 
-    public DummyNetworkManager() {
-        super(EnumProtocolDirection.b);
+    public DummyConnection() {
+        super(PacketFlow.SERVERBOUND);
 
-        this.k = new EmptyNettyChannel(null);
-        this.l = new SocketAddress() {
+        this.channel = new EmptyNettyChannel(null);
+        this.address = new SocketAddress() {
         };
     }
 
@@ -43,7 +43,7 @@ public class DummyNetworkManager extends NetworkManager {
     }
 
     @Override
-    public void sendPacket(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> genericfuturelistener) {
+    public void send(Packet<?> packet, GenericFutureListener<? extends Future<? super Void>> genericfuturelistener) {
         /* do nothing */
     }
 

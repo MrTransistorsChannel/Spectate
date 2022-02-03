@@ -1,10 +1,10 @@
 package ru.tulavcube.Spectate;
 
-import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
-import net.minecraft.network.protocol.game.PacketPlayOutNamedEntitySpawn;
-import net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo;
-import net.minecraft.server.network.PlayerConnection;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
+import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,13 +17,11 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        PlayerConnection plc = ((CraftPlayer) e.getPlayer()).getHandle().b;
+        ServerGamePacketListenerImpl plc = ((CraftPlayer) e.getPlayer()).getHandle().connection;
         for (DummyPlayer dummy : DummyPlayer.dummies) {
-            plc.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a,
-                    dummy));
-            plc.sendPacket(new PacketPlayOutNamedEntitySpawn(dummy));
-            plc.sendPacket(new PacketPlayOutEntityMetadata(dummy.getId(),
-                    dummy.getDataWatcher(), true));
+            plc.send(new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, dummy));
+            plc.send(new ClientboundAddPlayerPacket(dummy));
+            plc.send(new ClientboundSetEntityDataPacket(dummy.getId(), dummy.getEntityData(), true));
         }
     }
 
@@ -36,8 +34,8 @@ public class EventListener implements Listener {
     @EventHandler
     public void onTakeDamage(EntityDamageEvent e) {
         Entity entity = e.getEntity();
-        if (entity instanceof Player && ((CraftPlayer) entity).getHandle() instanceof DummyPlayer){
-            if(((CraftPlayer) entity).getHealth() - e.getFinalDamage() <= 0){
+        if (entity instanceof Player && ((CraftPlayer) entity).getHandle() instanceof DummyPlayer) {
+            if (((CraftPlayer) entity).getHealth() - e.getFinalDamage() <= 0) {
                 e.setCancelled(true);
                 Player spectator = ((DummyPlayer) ((CraftPlayer) entity).getHandle()).getSpawner();
                 Spectate.leaveShadow(spectator);

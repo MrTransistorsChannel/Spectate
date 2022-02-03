@@ -50,7 +50,7 @@ public class Spectate extends JavaPlugin {
         shadow.getBukkitEntity().setLevel(player.getLevel());
         shadow.getBukkitEntity().setExp(player.getExp());
         Entity playerVehicle = player.getVehicle();
-        if(playerVehicle != null) playerVehicle.addPassenger(shadow.getBukkitEntity());
+        if (playerVehicle != null) playerVehicle.addPassenger(shadow.getBukkitEntity());
         player.addScoreboardTag("ru.tulavcube.Spectate:spectating");
         playerGameModeMap.put(player, player.getGameMode());
         player.setGameMode(GameMode.SPECTATOR);
@@ -64,7 +64,7 @@ public class Spectate extends JavaPlugin {
             player.setLevel(shadow.getBukkitEntity().getLevel());
             player.setExp(shadow.getBukkitEntity().getExp());
             Entity shadowVehicle = shadow.getBukkitEntity().getVehicle();
-            if(shadowVehicle != null) shadowVehicle.addPassenger(shadow.getSpawner());
+            if (shadowVehicle != null) shadowVehicle.addPassenger(shadow.getSpawner());
             player.setHealth(shadow.getHealth());
             shadow.remove("Player left spectating mode");
         }
