@@ -21,7 +21,7 @@ public class spec implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
-            if (plugin.worldWhitelist.contains(((Player) sender).getLocation().getWorld().getName())) {
+            if (Spectate.worldWhitelist.contains(((Player) sender).getLocation().getWorld().getName())) {
                 if (!((Player) sender).getScoreboardTags().contains("ru.tulavcube.Spectate:spectating")
                         && ((Player) sender).getGameMode() != GameMode.SPECTATOR)
                     Spectate.turnIntoShadow((Player) sender);

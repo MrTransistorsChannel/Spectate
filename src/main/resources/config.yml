@@ -1,2 +1,4 @@
 # List of whitelisted worlds
 worlds: []
+# GeoFence range
+geofence-range: 50
