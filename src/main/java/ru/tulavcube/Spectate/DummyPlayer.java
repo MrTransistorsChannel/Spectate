@@ -34,9 +34,9 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.damagesource.DamageSource;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_18_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_18_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_19_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -58,8 +58,8 @@ public class DummyPlayer extends ServerPlayer {
     }
 
     public DummyPlayer(MinecraftServer server, ServerLevel world, GameProfile profile) {
-        super(server, world, profile);
-        dummyNames.add(getName().getContents());
+        super(server, world, profile, null);
+        dummyNames.add(getName().getString());
         dummies.add(this);
     }
 

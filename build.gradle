@@ -1,31 +1,17 @@
 plugins { id 'java-library' }
 apply from: rootProject.file('specialSource.gradle')
 
-version = '2.0.1'
+version = '2.0.2-MC1.19.2'
 group = 'ru.tulavcube.Spectate'
 
 ext {
-    spigotVersion = '1.18.1-R0.1-SNAPSHOT'
+    spigotVersion = '1.19.2-R0.1-SNAPSHOT'
     remapServerCode = true
 }
 
 repositories {
-    mavenCentral()
     mavenLocal()
-    maven {
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-
-        // As of Gradle 5.1, you can limit this to only those
-        // dependencies you expect from it
-        content {
-            includeGroup 'org.bukkit'
-            includeGroup 'org.spigotmc'
-        }
-    }
-
-    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
-    maven { url = 'https://libraries.minecraft.net/' }
+    mavenCentral()
 }
 
 dependencies {
